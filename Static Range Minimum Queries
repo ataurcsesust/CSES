@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define all(x) x.begin(), x.end()
+ 
+const ll LOG = 20;
+const ll MX = 2e5 + 10;
+ 
+ll m[MX][LOG];
+ll ar[MX];
+ 
+ll query(ll l, ll r) {
+    ll len = r - l + 1;
+    ll cnt = 0;
+    while ((1LL << (cnt + 1)) <= len) {
+        cnt++;
+    }
+    return min(m[l][cnt], m[r - (1LL << cnt) + 1][cnt]);
+}
+ 
+void solve() {
+    ll n, q;
+    cin >> n >> q;
+ 
+    for (ll i = 0; i < n; i++) {
+        cin >> ar[i];
+        m[i][0] = ar[i];
+    }
+ 
+    for (ll k = 1; k < LOG; k++) {
+        for (ll i = 0; i + (1 << k) <= n; i++) {
+            m[i][k] = min(m[i][k - 1], m[i + (1 << (k - 1))][k - 1]);
+        }
+    }
+ 
+    while (q--) {
+        ll l, r;
+        cin >> l >> r;
+        l--; r--; 
+        cout << query(l, r) << '\n';
+    }
+}
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
+    return 0;
+}
