@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int n;
+    cin >> n;
+    vector<pair<int, int>>job;
+ 
+    for (int i = 0; i < n; ++i) {
+        int a, b;
+        cin >> a >> b;
+        job.push_back({b,a});
+        
+    }
+ 
+    sort(job.begin(), job.end(),[](auto &a,auto b){
+         return a.first<b.first;
+    });
+ 
+    int cnt = 0,lastEnd = 0;
+    for (auto it: job) {
+         if(it.second>=lastEnd){
+             cnt++;
+             lastEnd=it.first;
+         }
+    }
+ 
+    cout << cnt << "\n";
+    return 0;
+}
