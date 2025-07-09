@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define all(x) x.begin(), x.end()
+#define endl '\n'
+void solve() {
+    ll n,m;
+    cin >> n>>m;
+    vector<pair<ll,ll>>a;
+    for(ll i=1;i<=n;i++){
+         ll x; cin >>x;
+         a.push_back({x,i});
+    }
+    sort(all(a));
+    ll left=0,right=n-1;
+    while(left<right){
+        if(a[left].first + a[right].first==m){
+            cout <<a[left].second<<' '<<a[right].second<<endl; return;
+        }
+        else if(a[left].first + a[right].first>m) right--;
+        else left++;
+    }
+    cout << "IMPOSSIBLE"<<endl;
+ 
+  
+}
+ 
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int t = 1;
+   // cin >> t;
+    while (t--) solve();
+    return 0;
+}
